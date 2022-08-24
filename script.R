@@ -29,6 +29,7 @@ probe_names <- unique(probe_names$external_gene_name)
 
 LCM_names <- sub("_[^_]+$", "", rownames(results))
 LCM_names_fix <- LCM_names[grep(";", LCM_names)]
+LCM_names_fix <- unlist(strsplit(LCM_names_fix, ";"))
 LCM_names <- LCM_names[-grep(";", LCM_names)]
 LCM_names <- c(LCM_names, sub("_[^_]+$", "", LCM_names_fix))
 
