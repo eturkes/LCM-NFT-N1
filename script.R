@@ -35,12 +35,8 @@ LCM_names <- LCM_names[-grep(";", LCM_names)]
 LCM_names <- c(LCM_names, sub("_[^_]+$", "", LCM_names_fix))
 
 intersection <- probe_names[probe_names %in% LCM_names]
-intersection_all <- unique(
-  hub_gene_data$external_gene_name[hub_gene_data$external_gene_name %in% LCM_names]
-)
-intersection_all_big <- unique(
-  hub_gene_data_big$external_gene_name[hub_gene_data$external_gene_name %in% LCM_names]
-)
+intersection_all <- intersect(hub_gene_data$external_gene_name, LCM_names)
+intersection_all_big <- intersect(hub_gene_data_big$external_gene_name, LCM_names)
 intersection_all_big_DE <- hub_gene_data_big$external_gene_name[hub_gene_data_big$DE == "yes"]
-intersection_all_big_DE <- unique(intersection_all_big_DE[intersection_all_big_DE %in% LCM_names])
+intersection_all_big_DE <- intersect(intersection_all_big_DE, LCM_names)
 intersection_all_big_DE_data <- hub_gene_data_big[hub_gene_data_big$external_gene_name %in% intersection_all_big_DE, ]
