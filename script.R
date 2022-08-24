@@ -23,6 +23,7 @@ heatmap_mat <- t(apply(heatmap_mat, 1, function (x) ((2 * (x - min(x)) / (max(x)
 Heatmap(heatmap_mat, cluster_columns = FALSE)
 
 hub_gene_data <- read.csv(file.path("data", "hub_gene_data_86_169.tsv"), sep = "")
+hub_gene_data_big <- read.csv(file.path("data", "hub_gene_data_big.tsv"), sep = "")
 probes_86 <- read.csv(file.path("data", "NFT-probes-86.txt"), sep = "")
 probe_names <- hub_gene_data[hub_gene_data$ensembl_gene_id %in% probes_86$initial_alias, ]
 probe_names <- unique(probe_names$external_gene_name)
@@ -37,3 +38,9 @@ intersection <- probe_names[probe_names %in% LCM_names]
 intersection_all <- unique(
   hub_gene_data$external_gene_name[hub_gene_data$external_gene_name %in% LCM_names]
 )
+intersection_all_big <- unique(
+  hub_gene_data_big$external_gene_name[hub_gene_data$external_gene_name %in% LCM_names]
+)
+intersection_all_big_DE <- hub_gene_data_big$external_gene_name[hub_gene_data_big$DE == "yes"]
+intersection_all_big_DE <- unique(intersection_all_big_DE[intersection_all_big_DE %in% LCM_names])
+intersection_all_big_DE_data <- hub_gene_data_big[hub_gene_data_big$external_gene_name %in% intersection_all_big_DE, ]
