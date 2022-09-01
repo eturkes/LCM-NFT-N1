@@ -28,11 +28,9 @@ probes_86 <- read.csv(file.path("data", "NFT-probes-86.txt"), sep = "")
 probe_names <- hub_gene_data[hub_gene_data$ensembl_gene_id %in% probes_86$initial_alias, ]
 probe_names <- unique(probe_names$external_gene_name)
 
-LCM_names <- sub("_[^_]+$", "", rownames(results))
-LCM_names_fix <- LCM_names[grep(";", LCM_names)]
-LCM_names_fix <- unlist(strsplit(LCM_names_fix, ";"))
-LCM_names <- LCM_names[-grep(";", LCM_names)]
-LCM_names <- c(LCM_names, sub("_[^_]+$", "", LCM_names_fix))
+LCM_names <- rownames(results)
+keep <- which(LCM_DEPs_raw_data$Protein.Names %in% LCM_names)
+LCM_names <- LCM_DEPs_raw_data$Genes[keep]
 
 intersection <- probe_names[probe_names %in% LCM_names]
 intersection_all <- intersect(hub_gene_data$external_gene_name, LCM_names)
