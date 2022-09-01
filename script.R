@@ -38,3 +38,10 @@ intersection_all_big <- intersect(hub_gene_data_big$external_gene_name, LCM_name
 intersection_all_big_DE <- hub_gene_data_big$external_gene_name[hub_gene_data_big$DE == "yes"]
 intersection_all_big_DE <- intersect(intersection_all_big_DE, LCM_names)
 intersection_all_big_DE_data <- hub_gene_data_big[hub_gene_data_big$external_gene_name %in% intersection_all_big_DE, ]
+
+prot_names <- which(LCM_DEPs_raw_data$Genes %in% intersection)
+prot_names <- LCM_DEPs_raw_data$Protein.Names[prot_names]
+
+heatmap_mat <- mat[rownames(mat) %in% prot_names, ]
+heatmap_mat <- t(apply(heatmap_mat, 1, function (x) ((2 * (x - min(x)) / (max(x) - min(x))) - 1)))
+Heatmap(heatmap_mat, cluster_columns = FALSE, cluster_rows = FALSE)
